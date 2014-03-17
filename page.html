@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<link type="text/css" rel="stylesheet" href="assets/css/bootstrap.css">
+	<link type="text/css" rel="stylesheet" href="assets/css/style.css">
+	
+
+	<title>Cryptography</title>
+	</head>
+
+	<body>
+		<div class="container">
+			<br>
+			<div class = "row">
+				<div class = "col-md-6">
+					<h3>Enter Ciphertext</h3>
+					<textarea id ="cipher" class="form-control" rows="3"></textarea>
+					<br>
+					<button id = "analyse_button" type="button" class="btn btn-default btn-lg btn-block">Analyse</button>
+				</div>		
+				<div class = "col-md-6">
+					<h3>Plain text</h3>
+					<textarea id ="plain" class="form-control" rows="3"></textarea>
+					<br>
+					<button onclick="test();" id = "analyse_button" type="button" class="btn btn-default btn-lg btn-block">Test Mapping</button>
+				</div>
+			</div>
+			<br>
+			<div class = "row">
+				<div class="col-md-12">
+					<table class="table table-bordered table-condensed">
+						<tr>
+							<td>A</td>
+							<td>B</td>
+							<td>C</td>
+							<td>D</td>
+							<td>E</td>
+							<td>F</td>
+							<td>G</td>
+							<td>H</td>
+							<td>I</td>
+							<td>J</td>
+							<td>K</td>
+							<td>L</td>
+							<td>M</td>
+						</tr>
+						<tr>
+							<td><input name="A" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="B" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="C" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="D" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="E" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="F" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="G" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="H" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="I" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="J" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="K" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="L" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="M" type="text" value="" size="2" maxlength="1"></td>
+						</tr>
+						<tr>
+							<td>N</td>
+							<td>O</td>
+							<td>P</td>
+							<td>Q</td>
+							<td>R</td>
+							<td>S</td>
+							<td>T</td>
+							<td>U</td>
+							<td>V</td>
+							<td>W</td>
+							<td>X</td>
+							<td>Y</td>
+							<td>Z</td>
+						</tr>
+						<tr>
+							<td><input name="N" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="O" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="P" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="Q" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="R" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="S" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="T" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="U" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="V" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="W" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="X" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="Y" type="text" value="" size="2" maxlength="1"></td>
+							<td><input name="Z" type="text" value="" size="2" maxlength="1"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2">
+					<table class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<td colspan="2">Average English text</td>
+							</tr>
+							<tr>
+								<td>Letter</td>
+								<td>Rel. Freq.</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>E</td>
+								<td>12.7</td>
+							</tr>
+							<tr>
+								<td>T</td>
+								<td>9.1</td>
+							</tr>
+							<tr>
+								<td>A</td>
+								<td>8.2</td>
+							</tr>
+							<tr>
+								<td>O</td>
+								<td>7.5</td>
+							</tr>
+							<tr>
+								<td>I</td>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>N</td>
+								<td>6.7</td>
+							</tr>
+							<tr>
+								<td>S</td>
+								<td>6.3</td>
+							</tr>
+							<tr>
+								<td>H</td>
+								<td>6.1</td>
+							</tr>
+							<tr>
+								<td>R</td>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>D</td>
+								<td>4.3</td>
+							</tr>
+							<tr>
+								<td>L</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>C</td>
+								<td>2.8</td>
+							</tr>
+							<tr>
+								<td>U</td>
+								<td>2.8</td>
+							</tr>
+							<tr>
+								<td>M</td>
+								<td>2.4</td>
+							</tr>
+							<tr>
+								<td>W</td>
+								<td>2.4</td>
+							</tr>
+							<tr>
+								<td>F</td>
+								<td>2.2</td>
+							</tr>
+							<tr>
+								<td>Y</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>G</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>P</td>
+								<td>1.9</td>
+							</tr>
+							<tr>
+								<td>B</td>
+								<td>1.5</td>
+							</tr>
+							<tr>
+								<td>V</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>K</td>
+								<td>0.8</td>
+							</tr>
+							<tr>
+								<td>X</td>
+								<td>0.2</td>
+							</tr>
+							<tr>
+								<td>J</td>
+								<td>0.2</td>
+							</tr>
+							<tr>
+								<td>Q</td>
+								<td>0.1</td>
+							</tr>
+							<tr>
+								<td>Z</td>
+								<td>0.1</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-3" id="frequencyTableDiv">
+					
+				</div>
+
+				<div class="col-md-2" id="bigramTableDiv">
+					
+				</div>
+
+				<div class="col-md-2" id="trigramTableDiv">
+					
+				</div>
+
+			</div>
+
+
+
+
+		</div> <!-- container -->
+
+		<script type="text/javascript" src="assets/js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="assets/js/analyser.js"></script>
+		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+
+	</body>
+
+</html>
