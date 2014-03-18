@@ -131,8 +131,8 @@ def solve(ciphertext, numberOfTrials, numberOfSwaps, mode):
 def decryptFile(filename):
 	with open(filename, 'r') as content_file:
 		content = content_file.read()
-		solve (content, 1, 1000, 1)
-		# solve (content, 15, 1000, 0)
+		solve (content, 5, 1000, 1)
+		solve (content, 15, 1000, 0)
 
 def test (filename):
 	with open(filename, 'r') as content_file:
