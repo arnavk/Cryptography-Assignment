@@ -74,7 +74,7 @@ def getProbableKey(ciphertext):
 	for entry in frequencyList:
 		sortedLetters = sortedLetters + entry[-1:]
 
-	normalDistribution = 'etaoinshrdlcumwfygpbvkxjqz'
+	normalDistribution = 'etaoinshrdlcumwfygpbvkjxqz'
 
 	key = ''
 	for c in alphabet:
@@ -85,6 +85,10 @@ def getProbableKey(ciphertext):
 def solve(ciphertext, numberOfTrials, numberOfSwaps, mode):
 	# For a detailed explanation on this alorithm, please refer to the attached documentation.
 	global quick, full
+	if mode == quick:
+		print 'Running in quick mode.'
+	else:
+		print 'Running complete tests'
 	initializeDictionary()
 	negativeInfinity = - float ('inf')
 	alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -102,7 +106,6 @@ def solve(ciphertext, numberOfTrials, numberOfSwaps, mode):
 		bestTrialScore = negativeInfinity
 
 		for j  in range (0, numberOfSwaps):
-
 			randInt1 = random.randint(0, 25)
 			randInt2 = randInt1
 			while (randInt2 == randInt1):
@@ -119,7 +122,7 @@ def solve(ciphertext, numberOfTrials, numberOfSwaps, mode):
 				key = newKey
 				bestTrialScore = score
 
-			print ('Working: ' + str(j*100.0/numberOfSwaps) + '% of swaps completed')
+			print ('Working: ' + str((i*100.0/numberOfTrials)+(j*100.0/(numberOfSwaps*numberOfTrials))) + '% completed')
 
 		if bestTrialScore > bestScore:
 			bestKey = key
@@ -129,6 +132,7 @@ def solve(ciphertext, numberOfTrials, numberOfSwaps, mode):
 	print decrypt(ciphertext, bestKey)		
 
 def decryptFile(filename):
+	# Reading the file with the ciphertext and solving it first in quick mode and then in complete mode.
 	global quick,  full
 	with open(filename, 'r') as content_file:
 		content = content_file.read()
