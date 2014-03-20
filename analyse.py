@@ -2,28 +2,34 @@ import math
 import random
 
 dictionary = {}
+quick = 1
+full = 2
 
+# This method deciphers a ciphertext for a particular key
 def decrypt(ciphertext, key):
 	alphabet = "abcdefghijklmnopqrstuvwxyz"
 	plaintext = ""
 	for c in ciphertext:
 		if c.isalpha():
-			plaintext = plaintext + alphabet[key.index(c)]
+			plaintext = plaintext + alphabet[key.index(c)] # deciphering only alphabetic characters
 		else:
-			plaintext = plaintext + c;
+			plaintext = plaintext + c; # punctuation marks/other non-alphabetic characters get copied verbatim
 	return plaintext
 
 def initializeDictionary():
 	global dictionary
+	# reading information from the file with trigram probabilites and saving it in the dictionary
 	for line in open ('count.txt'):
 		parts = line.split();
 		dictionary[parts[0]] = parts[1]
 		
 
 def getScore (ciphertext, key):
+	# evaluates the score of the key. For more information on the formula, read the attached document.
+
 	global dictionary
 	decryptedText = decrypt(ciphertext, key)
-	# print decryptedText
+
 	trigramMap = {}
 	trigramList = []
 	for i in range(0, len(decryptedText) - 2):
@@ -31,7 +37,6 @@ def getScore (ciphertext, key):
 			trigramList.append(decryptedText[i:i+3])
 	
 	trigramSet = set(trigramList)
-	# print trigramList
 
 	for trigram in trigramList:
 		trigramMap[trigram] = trigramList.count(trigram)
@@ -39,15 +44,12 @@ def getScore (ciphertext, key):
 	score = 0
 
 	for trigram in trigramSet:
-		# print trigram + ":"
-		# print trigramMap[trigram]
-		# print dictionary[trigram]
-		# print math.log(float(dictionary[trigram]), 2)
 		score = score + ( trigramMap[trigram] * math.log(float(dictionary[trigram]), 2))
 
 	return score
 
 def getProbableKey(ciphertext):
+	# performing analysis and returing a "probable key". This is found by sorting the alphabet appearing in the cipher text in descending order and matching it against the statistical probability of the alphabet in english.
 	frequencyMap = {}
 	alphabet = 'abcdefghijklmnopqrstuvwxyz'
 	letters = set(ciphertext)
@@ -65,25 +67,24 @@ def getProbableKey(ciphertext):
 			num = num + '0'
 		num = num + str(count) + '|' + letter
 		frequencyList.append(num)
-	# print frequencyList
+
 	frequencyList.sort(reverse = True)
 	
 	sortedLetters = ''
 	for entry in frequencyList:
 		sortedLetters = sortedLetters + entry[-1:]
 
-	# print sortedLetters
 	normalDistribution = 'etaoinshrdlcumwfygpbvkxjqz'
 
 	key = ''
 	for c in alphabet:
 		key = key + sortedLetters[normalDistribution.index(c)]
 
-	# print key
-
 	return key
 
 def solve(ciphertext, numberOfTrials, numberOfSwaps, mode):
+	# For a detailed explanation on this alorithm, please refer to the attached documentation.
+	global quick, full
 	initializeDictionary()
 	negativeInfinity = - float ('inf')
 	alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -93,7 +94,7 @@ def solve(ciphertext, numberOfTrials, numberOfSwaps, mode):
 	for i in range(0, numberOfTrials):
 		print ('Working: ' + str(i*100.0/numberOfTrials) + '% completed')
 		key = ''
-		if mode == 0:
+		if mode == quick:
 			key = ''.join(random.sample(alphabet, len(alphabet)))
 		else:
 			key = probableKey
@@ -126,18 +127,10 @@ def solve(ciphertext, numberOfTrials, numberOfSwaps, mode):
 
 	print 'Key: ' + bestKey
 	print decrypt(ciphertext, bestKey)		
-# analyse.solve ("", 15, 1000)
 
 def decryptFile(filename):
+	global quick,  full
 	with open(filename, 'r') as content_file:
 		content = content_file.read()
-		solve (content, 5, 1000, 1)
-		solve (content, 15, 1000, 0)
-
-def test (filename):
-	with open(filename, 'r') as content_file:
-		content = content_file.read()
-		getProbableKey(content)
-
-
-# vmshjlobyaxcqzneupdrgfiktw
+		solve (content, 5, 1000, quick)
+		solve (content, 15, 1000, full)
